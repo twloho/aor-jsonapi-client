@@ -29,7 +29,7 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
             const { name, value } = params.filter;
             var query = {
                 'page[offset]': (page - 1) * perPage,
-                'page[limit]': perPage, 
+                'page[limit]': perPage,
             };
             Object.keys(params.filter).forEach(key =>{
                 var filterField = 'filter[' + key +']';
@@ -109,7 +109,7 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
                 }
                 return interDic;
             });
-            return { data: jsonData, total: json.meta['record-count'] };
+            return { data: jsonData, total: json.meta['total'] };
         case GET_MANY:
                 jsonData = json.data.map(function(obj){
                     return Object.assign({id: obj.id}, obj.attributes);
