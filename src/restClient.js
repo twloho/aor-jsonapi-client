@@ -28,8 +28,8 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
             const { field, order } = params.sort;
             const { name, value } = params.filter;
             var query = {
-                'page[offset]': (page - 1) * perPage,
-                'page[limit]': perPage,
+                page,
+                perPage,
             };
             Object.keys(params.filter).forEach(key =>{
                 var filterField = 'filter[' + key +']';
@@ -109,7 +109,7 @@ export default (apiUrl, httpClient = jsonApiHttpClient) => {
                 }
                 return interDic;
             });
-            return { data: jsonData, total: json.meta['total'] };
+            return { data: jsonData, total: json.meta['pagination']['total'] };
         case GET_MANY:
                 jsonData = json.data.map(function(obj){
                     return Object.assign({id: obj.id}, obj.attributes);
